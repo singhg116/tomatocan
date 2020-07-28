@@ -21,7 +21,7 @@
                   <% end %>
                 <% end %>
               </td>
-              
+
               <td class=col-xs-3>
                 <% edt = event.start_at + 3.hours %>
                 <% dayId = "week-day-#{currentDate.strftime('%A')}-#{i}"%>
@@ -38,14 +38,17 @@
                 document.getElementById('<%=dayId%>').innerHTML = date.toLocaleString(undefined, optionsDay);
                 document.getElementById('<%=timeId%>').innerHTML = date.toLocaleString(undefined, optionsTime);
               </script>
-
+              <td>
+                  <%= image_tag "person.png", :class => 'img-xs' %>
+              </td>
               <td class="col-xs-3 overflow-visible">
                 <% rsvps = event.rsvpqs %>
                  <% rsvpusers = event.users %>
                 <% if rsvps.count > 0 %>
               <div class="btn-group">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" >
-                  <span class="caret"></span> &nbsp; Who will be there &nbsp; <span><%= rsvps.count %></span>
+                  <!--button for rsvp counter-->
+                  <span class="caret"></span><span><%= rsvps.count %></span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right rsvp-dropdown">
                   <% rsvps.each do |rsvp| %>
