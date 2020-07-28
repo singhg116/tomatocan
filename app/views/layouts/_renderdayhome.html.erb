@@ -38,6 +38,11 @@
                 document.getElementById('<%=dayId%>').innerHTML = date.toLocaleString(undefined, optionsDay);
                 document.getElementById('<%=timeId%>').innerHTML = date.toLocaleString(undefined, optionsTime);
               </script>
+
+              <td class=col-xs-3>
+                <span style="font-size:125%;" <%=i%>> Conversation</span>
+              </td>
+
               <td>
                   <%= image_tag "person.png", :class => 'img-xs' %>
               </td>
