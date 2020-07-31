@@ -39,21 +39,14 @@
                 document.getElementById('<%=timeId%>').innerHTML = date.toLocaleString(undefined, optionsTime);
               </script>
 
-              <td class=col-xs-3>
-                <span style="font-size:125%;" <%=i%>> Conversation</span>
-              </td>
-
-              <td>
-                  <%= image_tag "person.png", :class => 'img-xs' %>
-              </td>
               <td class="col-xs-3 overflow-visible">
                 <% rsvps = event.rsvpqs %>
                  <% rsvpusers = event.users %>
                 <% if rsvps.count > 0 %>
               <div class="btn-group">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" >
+                <button type="button" class="btn btn-primary dropdown-toggl" data-toggle="dropdown" aria-haspopup="true" >
                   <!--button for rsvp counter-->
-                  <span class="caret"></span><span><%= rsvps.count %></span>
+                  <span><%= image_tag "person.png", :class => 'img-xs' %></span><span><%= rsvps.count %></span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right rsvp-dropdown">
                   <% rsvps.each do |rsvp| %>

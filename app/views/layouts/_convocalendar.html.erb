@@ -12,7 +12,7 @@
 
         <% @calendar_events.sort_by{|t| t.start_at}.each do |event| %>
           <% user = User.find(event.user_id) %>
-          <% i += 1 %>  
+          <% i += 1 %>
           <tr>
             <td class=col-xs-3>
               <div id = "calendar-event">
@@ -100,13 +100,6 @@
             <% end %>
           </td>
 
-
-      <td class=col-xs-3>
-      <span style="font-size:125%;" <%=i%>> Conversation</span>
-      </td>
-      <td>
-          <%= image_tag "person.png", :class => 'img-xs' %>
-      </td>
        <td class="col-xs-3 overflow-visible">
                 <% rsvps = event.rsvpqs %>
                  <% rsvpusers = event.users %>
@@ -114,7 +107,7 @@
               <div class="btn-group">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" >
                   <!--button for rsvp counter-->
-                  <span class="caret"></span><span><%= rsvps.count %></span>
+                  <span><%= image_tag "person.png", :class => 'img-xs' %></span><span><%= rsvps.count %></span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right rsvp-dropdown">
                   <% rsvps.each do |rsvp| %>
