@@ -29,6 +29,7 @@
               <span><%= image_tag "live2.png" , :class => 'img-xs'%></span>
               <%end%>
               </td>
+              
 
               <td class=col-xs-3>
                 <% edt = event.start_at + 3.hours %>
@@ -46,10 +47,6 @@
                 document.getElementById('<%=dayId%>').innerHTML = date.toLocaleString(undefined, optionsDay);
                 document.getElementById('<%=timeId%>').innerHTML = date.toLocaleString(undefined, optionsTime);
               </script>
-
-
-              
-
 
               <td class="col-xs-3 overflow-visible">
                 <% rsvps = event.rsvpqs %>

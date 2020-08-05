@@ -26,7 +26,13 @@
             <% end %>
             </td>
 
-
+            <td class=col-xs-3>
+            <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
+            <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
+            <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
+            <span><%= image_tag "live2.png" , :class => 'img-xs'%></span>
+            <%end%>
+            </td>
 
             <td class=col-xs-3>
               <span style="font-size:125%;" id=convocalendar-time-day<%=i%>></span>
@@ -41,6 +47,7 @@
             document.getElementById('convocalendar-time-day<%=i%>').innerHTML = date.toLocaleString(undefined, optionsDay);
             document.getElementById('convocalendar-time<%=i%>').innerHTML = date.toLocaleString(undefined, optionsTime);
           </script>
+
           <td class=col-xs-3 style="text-align:center">
             <% @rsvp = Rsvpq.new %>
             <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
