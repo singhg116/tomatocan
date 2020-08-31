@@ -36,17 +36,18 @@
     <div class="col-md-8 col-sm-12 text-left pl-2">
          <% if user_signed_in? %>
             <br>Don't see your desired hour on the schedule yet? <br>
-            <%= link_to 'Post Drop-In Hour', new_event_path, class: "btn btn-warning", title: "Host drop-in sessions or invite people to ask questions about your area of expertise" %>
-          <% end %>
+
     </div>
     <div class="col-md-12 col-sm-12 col-xs-10 pl-0 ml-2 justify-content-center pr-1">
       <div class="buttonContainer text-center pr-5"><br>
         <button onclick="showPanel(0,'#2196f3')">Daily View </button>
         <button onclick="showPanel(1,'#4caf50')">Monthly View </button>
+        <%= link_to 'Post Drop-In Hour', new_event_path, class: "btn btn-warning", title: "Host drop-in sessions or invite people to ask questions about your area of expertise" %>
+      <% end %>
       </div>
 
     </div>
-     <div class="tabPanel text-center w-100" style="display: block; background-color: #8c1d40;">
+     <div class="tabPanel text-center w-100" >
       <div class="container-fluid " id="calendar">
         <div class="col-sm-12">
         <%= render 'layouts/weeklycalendar',  eventPartial: "layouts/renderday"%>

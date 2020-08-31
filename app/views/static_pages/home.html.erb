@@ -43,61 +43,65 @@
 <div class="row">
     <!--study hall and conversation section -->
 
-    <div class="col-lg-6 col-md-12 col-sm-12 pt-2">
+    <div class="col-lg-6 col-md-12 col-sm-12 pt-2" style="padding-top: 1rem !important">
       <!--conversations column-->
-      <div class="col-lg-12 col-md-12 mx-auto d-block text-center" style = "min-height:42%; justify-content:flex-end">
-        <%= render 'layouts/countdown_clock' %>
-      </div>
       <%= image_tag("convo_photo.png", class:"mx-auto d-block pb-3", style: "border-radius: 112px; width: 50%;")%>
       <h2 class="text-warning text-center"><strong>Conversations</strong>
       </h2>
-      <p class = "text-center">Join conversations to better understand what affects minorities and women in STEM <br> through hearing personal experiences.
+      <p class = "text-center" style="margin: auto; width: 55%">
+        Participate and converse in public discussions about news that you care about! Get informed on important topics that are happening in the world today!
       </p>
+      <div class="col-lg-12 col-md-12 mx-auto d-block text-center" style = "min-height:42%; justify-content:flex-end">
+        <%= render 'layouts/countdown_clock' %>
+      </div>
 
     </div>
 
     <!--end of conversations column-->
 
-    <div class="col-lg-6 col-md-12 col-sm-12 pb-5 pt-3 mt-3 ">
+    <div class="col-lg-6 col-md-12 col-sm-12 pb-5 pt-3 mt-3" style="margin-top: 0rem !important">
       <!--study hall column; col-md-6 col-lg-6 col-sm-12 col-xs-12-->
-      <div class="col-lg-12 col-md-12 col-sm-7 mx-auto d-block text-center" style = "min-height:42%; justify-content:flex-end">
-        <%= render 'layouts/countdown_clockstudy' %>
-      </div>
       <%= image_tag("activism_hall.jpg", class:" mx-auto d-block  pb-3", style: "border-radius:112px; width:50%;")%>
       <h2 class="text-warning text-center pl-5"><strong>
         Drop-In Hours</strong>
       </h2>
-      <p class = "text-center">
-        Join a community of developers and designers to network <br> while collaborating and critiquing each others projects. All expertise levels welcome!
+      <p class = "text-center" style="margin: auto; margin-bottom: 50px; width: 55%">
+        Meet and collaborate with professionals and interns on projects related to business, technology, design, academics, and more!
       </p>
+      <div class="col-lg-12 col-md-12 col-sm-7 mx-auto d-block text-center" style = "min-height:42%; justify-content:flex-end">
+        <%= render 'layouts/countdown_clockstudy' %>
+      </div>
+
     </div>
 </div>
     <!--end of drop in column-->
 </div>
       <div>
-        <div class="convo-container text-center" style="background-color: #8C1D40">
+        <div class="convo-container text-center" style="background-color: white">
           <!-- col-lg-3 col-md-6 -->
-          <h1 class = "white">Conversation Schedule</h1>
-          <% if user_signed_in? %>
-            <%= link_to 'Post your Own Conversation', new_event_path, class: "btn btn-warning", title: "Host drop-in conversation sessions or invite people to ask questions about your area of expertise" %>
-          <% end %>
+          <h1 class = "white">Schedule</h1>
+        </div>
+        <hr class="title-divider">
         </div>
       </div>
 
-      <div class="tabContainer text-center pr-2" style="background-color: #8C1D40" >
+      <div class="tabContainer text-center pr-2" style="background-color: #8C1D40; padding-right: 0.2rem !important; padding-left: 0.2rem" >
         <div class="buttonContainer pr-3" >
           <button onclick="showPanel(0,'#4caf50')">List View</button>
           <button onclick="showPanel(1,'#4caf50')">Daily View</button>
           <button onclick="showPanel(2,'#4caf50')">Monthly View</button>
+          <% if user_signed_in? %>
+            <%= link_to 'Post your Own Conversation', new_event_path, class: "btn btn-warning", title: "Host drop-in conversation sessions or invite people to ask questions about your area of expertise" %>
+          <% end %>
         </div>
 
         <div class="tabPanel">
           <%= render 'layouts/convocalendar', collection: @conversations %>
         </div>
-        <div class="tabPanel container-fluid">
+        <div class="tabPanel container-fluid" >
           <%= render 'layouts/weeklycalendar', eventPartial: "layouts/renderdayhome"%>
         </div>
-        <div class="tabPanel container-fluid">
+        <div class="tabPanel container-fluid" >
         <div id="events">
           <%= render partial: "layouts/calendar", locals: {baseDate: (Time.now - 10.hour).to_date,
              events: @calendar_events_all, monthNum: 0, type: 0}%>

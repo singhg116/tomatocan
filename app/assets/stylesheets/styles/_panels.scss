@@ -103,9 +103,11 @@
   }
 
 .tabContainer{
-  width: 100%;
+  width: 95%;
   height: auto;
-  text-align: center
+  margin: auto;
+  border-radius: 4px;
+  box-shadow: 0px 5px 5px grey;
 
 }
 .tabContainer2{
@@ -120,6 +122,8 @@
   text-align: center;
   border-color: #FFC627;
   border-width: 1px;
+  padding-bottom: 80px;
+  padding-top: 20px;
 }
 
 .tabContainer2 .buttonContainer {
@@ -130,7 +134,8 @@
 
 .tabContainer .buttonContainer button{
   width: 200px;
-  float: center;
+  height: 50px;
+  float: left;
   cursor: pointer;
   padding: 10px;
   font-family: sans-serif;
@@ -138,8 +143,11 @@
   font-weight: bold;
   background-color: #8C1D40;
   color: white;
+  border-color: white;
+  border-style: solid;
   border-radius: 5px;
-  margin-top: 5px;
+  border-width: 1px;
+  margin: 4px;
 }
 
 .tabContainer2 .buttonContainer button{
@@ -160,13 +168,18 @@
 }
 
 .tabContainer .buttonContainer button:hover{
-  background-color: #d7d4d4;
-  color: black;
+  background-color: $brand-white;
+  color: $brand-primary;
+}
+
+.tabContainer .buttonContainer button:focus{
+  background-color: $brand-white;
+  color: $brand-primary;
 }
 
 .tabContainer .tabPanel{
   height: auto;
-  background-color: gray;
+  background-color: grey;
   color: white;
   /*text-align: center;*/
   padding-top: 10px;
@@ -191,4 +204,17 @@
   color: #069;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.container-fluid{
+  width: 100%;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+hr.title-divider{
+  border-top: 3.5px solid $brand-secondary;
+  width: 25%;
 }

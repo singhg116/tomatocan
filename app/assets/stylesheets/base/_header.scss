@@ -77,6 +77,17 @@
     border-color: #ffffff;
 }
 
+.btn-warning {
+    color: #8c1d40 !important;
+    background-color: $brand-secondary !important;
+    height: 50px;
+    margin-bottom: 9px !important;
+    padding-top: 11px !important;
+    float: right;
+    font-weight: bold !important;
+  }
+
+
 .btn {
     display: inline-block;
     margin: 4px;

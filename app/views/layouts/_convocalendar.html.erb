@@ -40,7 +40,7 @@
             <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
 
             <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
-              <%= link_to " JOIN ", user_viewer_path(user.permalink, chatrm: @displayconvo.topic , event: event.id), class: "btn btn-primary btn-sm fa fa-video-camera" %>
+              <%= link_to " JOIN ", user_viewer_path(user.permalink, chatrm: @displayconvo.topic , event: event.id), class: "btn btn-primary btn-sm" %>
               <div id="live<%=i%>"></div>
               <script>
                 function liveCount() {
@@ -126,7 +126,7 @@
 
           </div>
 
-          <div style="width: 96%;">
+          <div style="width: 92%; margin: auto">
             <hr>
           </div>
 
