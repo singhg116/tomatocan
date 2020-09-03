@@ -12,12 +12,19 @@
           <% user = User.find(event.user_id) %>
           <div class = "col-3" style="text-align: left; padding-left: 50px">
             <%= link_to event.name, event_path(event.id), class: "h4", style: "font-weight:700; color: #222222;", title: event.desc %><br>
-            <%= link_to user.name, user.permalink %>
+            <%= link_to user.name, user.permalink, style:"color:#6c757d" %>
             <% if user_signed_in? %>
               <% if event.user_id == current_user.id %>
-                <br><%= link_to '(Edit Conversation)', edit_event_path(event.id) %>
+                <br><%= link_to '(Edit Conversation)', edit_event_path(event.id), style:"color:#6c757d" %>
               <% end %>
             <% end %>
+          </div>
+          <div class = "col-xs-3" >
+            <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
+            <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
+            <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
+            <span><%= image_tag "live2.png" , :class => 'img-live'%></span>
+            <%end%>
           </div>
           <div class = "col-3" style="color:#000" >
             <span style="font-size:125%;" id=convocalendar-time-day<%=i%>></span>
@@ -33,7 +40,7 @@
             document.getElementById('convocalendar-time<%=i%>').innerHTML = date.toLocaleString(undefined, optionsTime);
           </script>
 
-          <div class="col-3">
+          <div class="col-3" style="margin-top: 6px">
 
             <% @rsvp = Rsvpq.new %>
             <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
@@ -93,7 +100,7 @@
           </div>
 
           <!-- Share Buttons -->
-          <div class = "col-3">
+          <div class = "col-xs-3" style="margin-top: 12px">
             <% domainurl = "http://www.thinq.tv/"%>
 
             <!-- Facebook Share -->
@@ -102,7 +109,7 @@
               'newwindow',
               'width=600,height=400,top=100,left=300');
               return false;">
-              <%= image_tag("social-share-button/facebook.png")%>
+              <%= image_tag("social-share-button/facebook.png", style:"height:31px")%>
 
             </a>&nbsp
 
@@ -112,7 +119,7 @@
                 'newwindow',
                 'width=600,height=400,top=80,left=300');
                 return false;">
-                <%= image_tag("social-share-button/twitter.png")%>
+                <%= image_tag("social-share-button/twitter.png", style:"height:31px")%>
               </a>&nbsp
 
             <!-- LinkedIn -->
@@ -121,7 +128,7 @@
               'newwindow',
               'width=600,height=400,top=100,left=300');
               return false;">
-              <%= image_tag("social-share-button/linkedin.png")%>
+              <%= image_tag("social-share-button/linkedin.png", style:"height:31px")%>
             </a>&nbsp
 
           </div>

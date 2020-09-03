@@ -19,6 +19,14 @@
       get informed! There are always video chats happening twelve
       hours a day. Scroll down to see what people are talking about!
     </h2>
+    <%= link_to " Learn More ", href="/getinvolved", class: "btn btn-learn" %>
+    <% if @conversations.count != 0 %><br>
+      <% if @start_time != nil %>
+        <% if (Time.current > Time.find_zone("UTC").parse(@start_time) ) && (Time.current < Time.find_zone("UTC").parse(@start_time) + 1.hour) %>
+          <%= link_to " JOIN CONVERSATION ", user_viewer_path(@host.permalink, chatrm: @displayconvo.topic , event: @displayconvo.id), class: "btn btn-join" %>
+        <% end %>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="col-lg-6 pt-5 pb-5 pl-5 ml-3 mb-5 mt-5 pr-2">
@@ -27,19 +35,11 @@
 
 </div>
   <!-- end of top section-->
-  <div class = "pt-4 mt-2 pb-1">
-
-    <h2 class="text-primary text-center"><strong>
-      Want feedback on your tech or designs? <br>
-      Need an online study group or career advice? </strong>
-    </h2>
-    <p class="lead text-center">
-      Most of the day we have a video chat Drop-In
-      hours to support Women & Minorities in Tech.
-      <br>
-      <%= link_to "Drop-In", studyhall_path, style: "color: #FFB704" %> to meet us! <br>
-      <%= link_to "Become a Drop-In peer volunteer or mentor", new_event_path, style: "color: #FFB704" %>
-    </p>
+  <div class="pt-4 mt-2 pb-1" style="padding-top: 0px !important; text-align: center">
+    <h1 class="white"><strong>
+      Discover, Learn, & Converse </strong>
+    </h1>
+    <hr class="title-divider" style="width: 45%">
   </div>
 
   <!-- end of new to thinQ section-->
@@ -50,8 +50,9 @@
     <div class="col-lg-6 col-md-12 col-sm-12 pt-2" style="padding-top: 1rem !important">
       <!--conversations column-->
       <%= image_tag("convo_photo.png", class:"mx-auto d-block pb-3", style: "border-radius: 112px; width: 50%;")%>
-      <h2 class="text-warning text-center"><strong>Conversations</strong>
-      </h2>
+      <h1 class="text-center" style="font-size: 32px"><strong>Conversations</strong>
+      </h1>
+      <hr class="black-divider" style="width: 34%">
       <p class = "text-center" style="margin: auto; width: 55%">
         Participate and converse in public discussions about news that you care about! Get informed on important topics that are happening in the world today!
       </p>
@@ -66,9 +67,9 @@
     <div class="col-lg-6 col-md-12 col-sm-12 pb-5 pt-3 mt-3" style="margin-top: 0rem !important">
       <!--study hall column; col-md-6 col-lg-6 col-sm-12 col-xs-12-->
       <%= image_tag("activism_hall.jpg", class:" mx-auto d-block  pb-3", style: "border-radius:112px; width:50%;")%>
-      <h2 class="text-warning text-center pl-5"><strong>
-        Drop-In Hours</strong>
-      </h2>
+      <h1 class="text-center" style="font-size: 32px"><strong>Study Hall</strong>
+      </h1>
+      <hr class="black-divider" style="width: 24%">
       <p class = "text-center" style="margin: auto; margin-bottom: 50px; width: 55%">
         Meet and collaborate with professionals and interns on projects related to business, technology, design, academics, and more!
       </p>
@@ -85,17 +86,17 @@
           <!-- col-lg-3 col-md-6 -->
           <h1 class = "white">Schedule</h1>
         </div>
-        <hr class="title-divider">
+        <hr class="title-divider" style="width: 25%">
         </div>
       </div>
 
-      <div class="tabContainer text-center pr-2" style="background-color: #8C1D40; padding-right: 0.2rem !important; padding-left: 0.2rem" >
+      <div class="tabContainer text-center" style="background-color: #8C1D40; padding-right: 0.2rem; padding-left: 0.2rem; padding-bottom: 0.2rem" >
         <div class="buttonContainer pr-3" >
           <button onclick="showPanel(0,'#4caf50')">List View</button>
           <button onclick="showPanel(1,'#4caf50')">Daily View</button>
           <button onclick="showPanel(2,'#4caf50')">Monthly View</button>
           <% if user_signed_in? %>
-            <%= link_to 'Post your Own Conversation', new_event_path, class: "btn btn-warning", title: "Host drop-in conversation sessions or invite people to ask questions about your area of expertise" %>
+            <%= link_to 'Post your Own Conversation', new_event_path, class: "btn btn-warning", title: "Host drop-in conversation sessions or invite people to ask questions about your area of expertise", style: "padding-top: 11px !important" %>
           <% end %>
         </div>
 
