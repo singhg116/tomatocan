@@ -92,9 +92,9 @@
 
       <div class="tabContainer text-center" style="background-color: #8C1D40; padding-right: 0.2rem; padding-left: 0.2rem; padding-bottom: 0.2rem" >
         <div class="buttonContainer pr-3" >
-          <button onclick="showPanel(0,'#4caf50')">List View</button>
-          <button onclick="showPanel(1,'#4caf50')">Daily View</button>
-          <button onclick="showPanel(2,'#4caf50')">Monthly View</button>
+          <button onclick="showPanel(0,'#4caf50')" style="position: relative; right: 3.5rem;">List View</button>
+          <button onclick="showPanel(1,'#4caf50')" style="position: relative; right: 3.5rem;">Daily View</button>
+          <button onclick="showPanel(2,'#4caf50')" style="position: relative; right: 3.5rem;">Monthly View</button>
           <% if user_signed_in? %>
             <%= link_to 'Post your Own Conversation', new_event_path, class: "btn btn-warning", title: "Host drop-in conversation sessions or invite people to ask questions about your area of expertise", style: "padding-top: 11px !important" %>
           <% end %>
