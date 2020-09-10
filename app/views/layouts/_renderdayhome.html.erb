@@ -1,7 +1,7 @@
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0"></script>
 <% offset = -1 * Time.now.in_time_zone("Pacific Time (US & Canada)").gmt_offset/3600%>
 <%eventCount = 0%>
-<div class="panel panel-default border-right border-left border-top table-responsive">
+<div class="panel panel-default table-responsive">
   <% if @calendar_events_all.count != 0 %>
     <table class="table table-hover" id=calendar>
       <tbody>
@@ -14,20 +14,20 @@
                 <div id = "calendar-event">
                   <%= link_to event.name, event_path(event.id), id: "calendar-event", title: event.desc %>
                 </div>
-                <%= link_to user.name, user.permalink%>
+                <%= link_to user.name, user.permalink, style: "color: #6c757d"%>
                 <% if user_signed_in? %>
                   <% if event.user_id == current_user.id %>
-                    <%= link_to '(Edit Conversation)', edit_event_path(event.id), id: "calendar-host" %>
+                    <%= link_to '(Edit Conversation)', edit_event_path(event.id), id: "calendar-host", style: "color: #6c757d"%>
                   <% end %>
                 <% end %>
               </td>
 
               <td class=col-xs-3>
-              <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
-              <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
-              <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
-              <span><%= image_tag "live2.png" , :class => 'img-live'%></span>
-              <%end%>
+                <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
+                <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
+                <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
+                <span><%= image_tag "live2.png" , :class => 'img-live'%></span>
+                <%end%>
               </td>
 
 
@@ -95,7 +95,7 @@
                 <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
 
                 <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
-                  <%= link_to " JOIN ", user_viewer_path(user.permalink, chatrm: event.topic , event: event.id), class: "btn btn-primary btn-sm" %>
+                  <%= link_to " JOIN ", user_viewer_path(user.permalink, chatrm: event.topic , event: event.id), class: "btn btn-primary", style:"font-size: 14px; width: 70px; height:25px; line-height:11px; margin-left:1px" %>
                   <div id="live<%=eventCount%>"></div>
                   <script>
                     function liveCount() {
@@ -130,10 +130,10 @@
                       </script>
                       <% if user_signed_in? %>
                         <%= f.hidden_field :user_id, :value => current_user.id %>
-                        <%= f.submit "RSVP", :style => "color: #fff; background-color: #880f42; padding: 2px 20px; font-weight: normal; border-radius:0px;", :id => "RSVPsubmit" %>
+                        <%= f.submit "RSVP", :style => "color: #fff; background-color: #880f42; padding: 2px 20px; font-weight: normal; border-radius:4px; border-style: none", :id => "RSVPsubmit" %>
                       <% else %>
                         <%= f.text_field :email, :style => "border: 1px solid grey; border-radius: 0px;", placeholder: "Enter email", :class =>"enter_email" %>
-                        <%= f.submit "RSVP", :style => "color: #fff; background-color: #880f42; padding: 2px 20px; font-weight: normal; border-radius:0px;", :id => "RSVPsubmit" %>
+                        <%= f.submit "RSVP", :style => "color: #fff; background-color: #880f42; padding: 2px 20px; font-weight: normal; border-radius:4px; border-style: none", :id => "RSVPsubmit" %>
                       <% end %>
                     <% end %>
                 <% end %>
@@ -172,6 +172,7 @@
                 </a>&nbsp
 
               </td>
+
             </tr>
           <% end %>
         <% end %>
