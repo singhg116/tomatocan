@@ -18,7 +18,7 @@ ul {
         &.show {
           /*display: block;*/
         }
-    } 
+    }
 }
 
 ul li a.toggle {
@@ -64,11 +64,12 @@ ul li a.toggle:hover {
     background-size: 100%;
     color: #fff;
     transition: color 1s ease;
-   /*background: rgba(0, 0, 0, 0.9);*/  
+   /*background: rgba(0, 0, 0, 0.9);*/
 }
 
 a {
-    text-decoration: none !important;
+    text-decoration: none;
+    /* deleted important */
 }
 
 .toggle:after {

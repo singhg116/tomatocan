@@ -1,28 +1,24 @@
 footer {
     position: relative;
-    padding-top: 15px;
+    padding-top: 35px;
     padding-bottom: 15px;
     margin: 0;
-    margin-top: 50px;
-    text-align: left;
-    background-color:$brand-primary;
+    margin-top: 30px;
+    background-color: #2B2D2F;
     font-family: Helvetica;
     font-size: 12px;
-
 }
 
 #copyright {
     position: absolute;
+    font-size: 15px;
     bottom: 0;
     right: 0;
 }
 
 
 footer a.f-link{
-    color: $brand-gray ; //light grey
-    &:hover{
-        text-decoration: none;
-    }
+    color: white ; //was light grey, changed to white
 }
 
 footer p.f-header{
@@ -35,5 +31,6 @@ footer div.col-sm-3{
 }
 
 footer small{
-  color:$brand-secondary;
+  color: white;
+  margin-right: 40px;
 }

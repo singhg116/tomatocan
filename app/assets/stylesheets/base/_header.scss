@@ -11,6 +11,11 @@
   .landing-sign-in-btn {
     width: 100px;
   }
+
+  .li {
+
+  }
+
   // signup colors
 
   .btn-primary {
@@ -48,6 +53,13 @@
     transform: scale(1.15) rotate(-12deg);
   }
 }
+
+#navLink {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .container-fluid pt-1 mt-1{
     padding-right: 15px;
     padding-left: 15px;
