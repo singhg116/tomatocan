@@ -1,6 +1,38 @@
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0"></script>
 <% offset = -1 * Time.now.in_time_zone("Pacific Time (US & Canada)").gmt_offset/3600%>
 <%eventCount = 0%>
+
+<div class="row">
+
+  <div class = "col-3" style="color:#000" >
+    <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; padding-left: 10px; font-size:140%; color:#8C1D40">
+      <strong>Title</strong>
+    </h2>
+  </div>
+
+  <div class = "col-3" style="color:#000" >
+    <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; padding-left: 110px; font-size:140%; color:#8C1D40">
+      <strong>Time</strong>
+    </h2>
+  </div>
+
+  <div class = "col-xs-3" style="color:#000" >
+    <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; padding-left: 160px; font-size:140%; color:#8C1D40">
+      <strong>Activity</strong>
+    </h2>
+  </div>
+
+  <div class = "col-xs-3" style="color:#000" >
+    <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; padding-left: 195px; font-size:140%; color:#8C1D40">
+      <strong>Share</strong>
+    </h2>
+  </div>
+
+  <div style="width: 98%; margin: auto; height:20px">
+    <hr>
+  </div>
+</div>
+
 <div class="panel panel-default table-responsive">
   <% if @calendar_events_all.count != 0 %>
     <table class="table table-hover" id=calendar>
@@ -27,6 +59,8 @@
                 <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
                 <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
                 <span><%= image_tag "live2.png" , :class => 'img-live'%></span>
+                <% else %>
+                <div style="padding-left: 100px">&nbsp;</div>
                 <%end%>
               </td>
 
@@ -48,12 +82,12 @@
                 document.getElementById('<%=timeId%>').innerHTML = date.toLocaleString(undefined, optionsTime);
               </script>
 
-              <td class="col-xs-3 overflow-visible">
+              <td class="col-xs-3">
                 <% rsvps = event.rsvpqs %>
                  <% rsvpusers = event.users %>
                 <% if rsvps.count > 0 %>
               <div class="btn-group">
-                <button type="button" class="btn btn-primary dropdown-toggl" data-toggle="dropdown" aria-haspopup="true" >
+                <button type="button" class="btn btn-primary dropdown-toggl" style="border-radius: 4px; background-color: white; border-color: white; color: #8C1D40" data-toggle="dropdown" aria-haspopup="true" >
                   <!--button for rsvp counter-->
                   <span><%= image_tag "person.png", :class => 'img-xs' %></span><span><%= rsvps.count %></span>
                 </button>
@@ -130,10 +164,10 @@
                       </script>
                       <% if user_signed_in? %>
                         <%= f.hidden_field :user_id, :value => current_user.id %>
-                        <%= f.submit "RSVP", :style => "color: #fff; background-color: #880f42; padding: 2px 20px; font-weight: normal; border-radius:4px; border-style: none", :id => "RSVPsubmit" %>
+                        <%= f.submit "RSVP", :style => "color: #8C1D40; background-color: white; border-color: #8C1D40; margin-top: 2px; padding: 2px 20px; font-weight: normal; border-radius:4px; border: 1px solid", :id => "RSVPsubmit" %>
                       <% else %>
                         <%= f.text_field :email, :style => "border: 1px solid grey; border-radius: 0px;", placeholder: "Enter email", :class =>"enter_email" %>
-                        <%= f.submit "RSVP", :style => "color: #fff; background-color: #880f42; padding: 2px 20px; font-weight: normal; border-radius:4px; border-style: none", :id => "RSVPsubmit" %>
+                        <%= f.submit "RSVP", :style => "color: #8C1D40; background-color: white; margin-color: #8C1D40; margin-top: 2px; padding: 2px 20px; font-weight: normal; border-radius:4px; border: 1px solid", :id => "RSVPsubmit" %>
                       <% end %>
                     <% end %>
                 <% end %>

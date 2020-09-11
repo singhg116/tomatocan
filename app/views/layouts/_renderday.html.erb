@@ -1,6 +1,35 @@
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0"></script>
 <% offset = -1 * Time.now.in_time_zone("Pacific Time (US & Canada)").gmt_offset/3600%>
 <%eventCount = 0%>
+
+<div class="row">
+
+  <div class = "col-xs-3" style="color:#000; padding-right:0px" >
+    <h2 class="text-center" style="text-align: left !important; padding-left: 30px; font-size:140%; color:#8C1D40">
+      <strong>Title</strong>
+    </h2>
+  </div>
+
+  <div class = "col-3" style="color:#000" >
+    <h2 class="text-center" style="text-align: left !important; padding-left: 265px; font-size:140%; color:#8C1D40">
+      <strong>Time</strong>
+    </h2>
+  </div>
+
+  <div class = "col-xs-3" style="color:#000" >
+    <h2 class="text-center" style="text-align: left !important; padding-left: 260px; font-size:140%; color:#8C1D40">
+      <strong>Activity</strong>
+    </h2>
+  </div>
+
+  <div class = "col-xs-3" style="color:#000" >
+    <h2 class="text-center" style="text-align: left !important; padding-left: 295px; font-size:140%; color:#8C1D40">
+      <strong>Share</strong>
+    </h2>
+  </div>
+
+</div>
+
 <div class="panel panel-default border-right border-left border-top table-responsive">
   <% if @calendar_events_all.count != 0 %>
     <table class="table table-hover" id=calendar>
@@ -10,16 +39,17 @@
             <%eventCount += 1%>
             <% user = User.find(event.user_id) %>
             <tr>
-              <td class=col-xs-2>
+
+              <td class=col-xs-2 style="font-size: 17px">
                 <% rsvpeople = "" %>
-                <% rsvpusers = event.users %>
+                <strong><%= event.topic%></strong><br>
+                <%= link_to user.name, user.permalink, title: rsvpeople, style: "font-size: 14px;  color: #6c757d" %>
 
-                <% dayId = "week-day-#{currentDate.strftime('%A')}-#{i}"%>
-                <% timeId = "week-time-#{currentDate.strftime('%A')}-#{i}"%>
-
-                <span style="font-size:90%;" id=<%=dayId%>></span>
-                <br>
-                <span style="font-size:125%;"id=<%=timeId%>></span>
+                <% if user_signed_in? %>
+                  <% if event.user_id == current_user.id %>
+                    <%= link_to '(Edit)', edit_event_path(event.id), id: "calendar-host", style: "font-size: 14px;  color: #6c757d"%>
+                  <% end %>
+                <% end %>
               </td>
 
               <td class=col-xs-2>
@@ -27,9 +57,21 @@
               <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
               <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
               <span><%= image_tag "live2.png" , :class => 'img-live'%></span>
+              <% else %>
+              <div style="padding-left: 100px">&nbsp;</div>
               <%end%>
               </td>
 
+              <td class=col-xs-2>
+                <% rsvpusers = event.users %>
+
+                <% dayId = "week-day-#{currentDate.strftime('%A')}-#{i}"%>
+                <% timeId = "week-time-#{currentDate.strftime('%A')}-#{i}"%>
+
+                <span style="font-size:17.5px;" id=<%=dayId%>></span>
+                <br>
+                <span style="font-size:12.5; color: #6c757d"id=<%=timeId%>></span>
+              </td>
               <script>
                 var date = new Date(Date.parse("<%= event.start_at.strftime("%FT%T%:z") %>"));
                 date.setHours(date.getHours() + parseInt("<%=offset%>"))
@@ -38,23 +80,14 @@
                 document.getElementById('<%=dayId%>').innerHTML = date.toLocaleString(undefined, optionsDay);
                 document.getElementById('<%=timeId%>').innerHTML = date.toLocaleString(undefined, optionsHour);
               </script>
-              <td class=col-xs-2>
-                <%= event.topic %><br>
-                <%= link_to user.name, user.permalink, title: rsvpeople %>
 
-                <% if user_signed_in? %>
-                  <% if event.user_id == current_user.id %>
-                    <%= link_to '(Edit)', edit_event_path(event.id), id: "calendar-host" %>
-                  <% end %>
-                <% end %>
-              </td>
-              <td class="col-xs-3 overflow-visible">
+              <td class="col-xs-2">
                 <% rsvps = event.rsvpqs %>
-                 <% rsvpusers = event.users %>
+                <% rsvpusers = event.users %>
                 <% if rsvps.count > 0 %>
               <div class="btn-group">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" >
-                  <span class="caret"></span> &nbsp; Who will be there &nbsp; <span><%= rsvps.count %></span>
+                <button type="button" class="btn btn-primary dropdown-toggle" style="border-radius: 4px; background-color: white; border-color: white; color: #8C1D40" data-toggle="dropdown" aria-haspopup="true" >
+                  <span><%= image_tag "person.png", :class => 'img-xs' %></span><span><%= rsvps.count %></span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right rsvp-dropdown">
                   <% rsvps.each do |rsvp| %>
@@ -84,6 +117,8 @@
                     <% end %>
                   <% end %>
                 </div>
+                <% else %>
+                <div style="padding-left: 100px">&nbsp;</div>
                 <% end %>
               </td>
 
@@ -93,7 +128,7 @@
                 <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
 
                 <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
-                  <%= link_to " Join " + event.topic, user_viewer_path(user.permalink, chatrm: event.topic , event: event.id), class: "btn btn-primary btn-sm fa fa-video-camera" %>
+                  <%= link_to " Join " + event.topic, user_viewer_path(user.permalink, chatrm: event.topic , event: event.id), class: "btn btn-primary btn-sm" %>
                   <div id="live<%=eventCount%>"></div>
                   <script>
                     function liveCount() {
@@ -130,11 +165,11 @@
                         <% end %>
 
                         <% if flag %>
-                        <%= f.submit "RSVP", :style => "color: #fff; background-color: #880f42; padding: 2px 20px; font-weight: normal; border-radius:0px;", :id => "RSVPsubmit"  %>
+                        <%= f.submit "RSVP", :style => "color: #8C1D40; background-color: white; border-color: #8C1D40; margin-top: 2px; padding: 2px 20px; font-weight: normal; border-radius:4px; border: 1px solid; width:95px; height:30px", :id => "RSVPsubmit"  %>
                         <% end %>
                       <% else %>
                         <%= f.text_field :email, :style => "border: 1px solid grey; border-radius: 0px;", placeholder: "Enter email", :class =>"enter_email" %>
-                        <%= f.submit "RSVP", :style => "color: #fff; background-color: #880f42; padding: 2px 20px; font-weight: normal; border-radius:0px;", :id => "RSVPsubmit" %>
+                        <%= f.submit "RSVP", :style => "color: #8C1D40; background-color: white; border-color: #8C1D40; margin-top: 2px; padding: 2px 20px; font-weight: normal; border-radius:4px; border: 1px solid", :id => "RSVPsubmit" %>
                       <% end %>
                     <% end %>
 
@@ -150,10 +185,10 @@
 
                     <% if user_signed_in? %>
                       <%= f.hidden_field :user_id, :value => current_user.id %>
-                      <%= f.submit "RSVP", :style => "color: #fff; background-color: #880f42; padding: 2px 20px; font-weight: normal; border-radius:0px;", :id => "RSVPsubmit" %>
+                      <%= f.submit "RSVP", :style => "color: #8C1D40; background-color: white; border-color: #8C1D40; margin-top: 2px; padding: 2px 20px; font-weight: normal; border-radius:4px; border: 1px solid; width:95px; height:30px; margin-left: 5px", :id => "RSVPsubmit" %>
                     <% else %>
                       <%= f.text_field :email, :style => "border: 1px solid grey; border-radius: 0px;", placeholder: "Enter email", :class =>"enter_email" %>
-                      <%= f.submit "RSVP", :style => "color: #fff; background-color: #880f42; padding: 2px 20px; font-weight: normal; border-radius:0px;", :id => "RSVPsubmit" %>
+                      <%= f.submit "RSVP", :style => "color: #8C1D40; background-color: white; border-color: #8C1D40; margin-top: 2px; padding: 2px 20px; font-weight: normal; border-radius:4px; border: 1px solid", :id => "RSVPsubmit" %>
                     <% end %>
                   <% end %>
                 <% end %>
@@ -170,17 +205,18 @@
                   'newwindow',
                   'width=600,height=400,top=100,left=300');
                   return false;">
-                  <%= image_tag("facebook_icon.png", :style => "margin-left: 0px; width:25px; height:25px; border-radius:4px")%>
+                  <%= image_tag("social-share-button/facebook.png")%>
+
                 </a>&nbsp
 
                   <!-- Twitter Share -->
-                  <a href="https://twitter.com/intent/tweet?text=Join <%= user.name %>'s' Conversation to talk about: <%= event.name + "," %> <%= event.start_at.strftime("%B %d, %I:%M %p")%> PDT: <%= request.base_url %><%= user.permalink %>%20Every%20afternoon%20and%20evening%20ThinQ.tv%20has%20meaningful%20live%20video%20chat%20conversations%20to%20get%20you%20motivated%20for%20the%202020%20elections.%20Go%20to%20http://ThinQ.tv%20and%20browse%20the%20schedule%20of%20Conversations."
-                    onclick="window.open('https://twitter.com/intent/tweet?text=Join <%= user.name %> Conversation: <%= event.name + "," %> <%= event.start_at.strftime("%B %d, %I:%M %p")%> PDT: <%= request.base_url %><%= user.permalink %>,
+                  <a href="https://twitter.com/intent/tweet?text=Join <%= user.name %>'s' Conversation to talk about: <%= event.name + "," %> <%= event.start_at.strftime("%B %d, %I:%M %p")%> PDT: http://www.thinq.tv/<%= user.permalink %>%20Every%20afternoon%20and%20evening%20ThinQ.tv%20has%20meaningful%20live%20video%20chat%20conversations%20to%20get%20you%20motivated%20for%20the%202020%20elections.%20Go%20to%20http://ThinQ.tv%20and%20browse%20the%20schedule%20of%20Conversations."
+                    onclick="window.open('https://twitter.com/intent/tweet?text=Join <%= user.name %> Conversation: <%= event.name + "," %> <%= event.start_at.strftime("%B %d, %I:%M %p")%> PDT: http://www.thinq.tv/<%= user.permalink %>,
                     'newwindow',
                     'width=600,height=400,top=80,left=300');
                     return false;">
-                  <%= image_tag("twitter_icon.png", :style => "margin-left: -5px; width:25px; height:25px; border-radius:4px")%>
-                  </a>
+                    <%= image_tag("social-share-button/twitter.png")%>
+                  </a>&nbsp
 
                 <!-- LinkedIn -->
                 <a href="https://www.linkedin.com/shareArticle?mini=true&url=<%= @surl %>"
@@ -188,7 +224,7 @@
                   'newwindow',
                   'width=600,height=400,top=100,left=300');
                   return false;">
-                  <%= image_tag("linkedin_icon.png", :style => "margin-left: 0px; width:25px; height:25px; border-radius:4px")%>
+                  <%= image_tag("social-share-button/linkedin.png")%>
                 </a>&nbsp
 
               </td>
