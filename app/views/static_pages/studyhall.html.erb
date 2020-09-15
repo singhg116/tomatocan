@@ -36,11 +36,11 @@
 </div>
 
 <div class="tabContainer text-center" style="background-color: #8C1D40; padding-right: 0.2rem; padding-left: 0.2rem; padding-bottom: 0.2rem" >
-      <div class="buttonContainer pr-3">
-        <button onclick="showPanel(0,'#2196f3')" style="position: relative; right: 3.5rem;">Daily View </button>
-        <button onclick="showPanel(1,'#4caf50')" style="position: relative; right: 3.5rem;">Monthly View </button>
+      <div class="buttonContainer pl-3 pr-3">
+        <button onclick="showPanel(0,'#2196f3')" style="float: left; width: 20%; height:65px; min-width: 95px">Daily View </button>
+        <button onclick="showPanel(1,'#4caf50')" style="float: left; width: 20%; height:65px; min-width: 95px">Monthly View </button>
         <% if user_signed_in? %>
-          <%= link_to 'Post Drop-In Hour', new_event_path, class: "btn btn-warning", title: "Host drop-in sessions or invite people to ask questions about your area of expertise", style: "padding-top: 11px" %>
+          <%= link_to 'Post Drop-In Hour', new_event_path, class: "btn btn-warning", title: "Host drop-in sessions or invite people to ask questions about your area of expertise", style: "padding-top: 11px !important; width: 20%; height:65px; line-height: 250%; min-width: 95px; overflow: hidden" %>
         <% end %>
       </div>
 

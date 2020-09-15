@@ -1,7 +1,7 @@
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0"></script>
 <% offset = -1 * Time.now.in_time_zone("Pacific Time (US & Canada)").gmt_offset/3600%>
 <%eventCount = 0%>
-
+<div class="panel panel-default table-responsive">
 <div class="row">
 
   <div class = "col-xs-3" style="color:#000; padding-right:0px" >
@@ -81,47 +81,6 @@
                 document.getElementById('<%=timeId%>').innerHTML = date.toLocaleString(undefined, optionsHour);
               </script>
 
-              <td class="col-xs-2">
-                <% rsvps = event.rsvpqs %>
-                <% rsvpusers = event.users %>
-                <% if rsvps.count > 0 %>
-              <div class="btn-group">
-                <button type="button" class="btn btn-primary dropdown-toggle" style="border-radius: 4px; background-color: white; border-color: white; color: #8C1D40" data-toggle="dropdown" aria-haspopup="true" >
-                  <span><%= image_tag "person.png", :class => 'img-xs' %></span><span><%= rsvps.count %></span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right rsvp-dropdown">
-                  <% rsvps.each do |rsvp| %>
-                  <%if !rsvp.user_id.nil? %>
-                    <% rsvpuser = User.find(rsvp.user_id) %>
-                    <%= link_to user_profile_path(rsvpuser.permalink) do %>
-                      <div class="dropdown-item">
-                        <span>
-                          <% if rsvpuser.profilepic.present? && rsvpuser.profilepic != '' %>
-                            <%= image_tag rsvpuser.profilepic.url.to_s, :class => 'img-xs' %>
-                          <% elsif !rsvpuser.profilepic.url.nil? %>
-                            <% if rsvpuser.profilepic.url.match(/http/) %>
-                              <%= image_tag rsvpuser.profilepic.url, :class => 'img-xs' %>
-                            <% end %>
-                          <% else %>
-                            <%= image_tag "logoDigitalHollow300.png", :class => 'img-xs' %>
-                          <% end %>
-                        </span>
-                        <%= rsvpuser.name %></div>
-                    <% end %>
-                  <% end %>
-                  <% end %>
-                  <% rsvps.each do |rsvp| %>
-                    <% unless rsvp.email.blank? %>
-                      <% parts = rsvp.email.split('@') %>
-                      <div class="dropdown-item"><%= parts[0] %></div>
-                    <% end %>
-                  <% end %>
-                </div>
-                <% else %>
-                <div style="padding-left: 100px">&nbsp;</div>
-                <% end %>
-              </td>
-
               <td class=col-xs-2>
                 <% @rsvp = Rsvpq.new %>
                 <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
@@ -194,6 +153,46 @@
                 <% end %>
               </td>
 
+              <td class="col-xs-2">
+                <% rsvps = event.rsvpqs %>
+                <% rsvpusers = event.users %>
+                <% if rsvps.count > 0 %>
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" style="border-radius: 4px; background-color: white; border-color: white; color: #8C1D40" data-toggle="dropdown" aria-haspopup="true" >
+                  <span><%= image_tag "person.png", :class => 'img-xs' %></span><span><%= rsvps.count %></span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right rsvp-dropdown">
+                  <% rsvps.each do |rsvp| %>
+                  <%if !rsvp.user_id.nil? %>
+                    <% rsvpuser = User.find(rsvp.user_id) %>
+                    <%= link_to user_profile_path(rsvpuser.permalink) do %>
+                      <div class="dropdown-item">
+                        <span>
+                          <% if rsvpuser.profilepic.present? && rsvpuser.profilepic != '' %>
+                            <%= image_tag rsvpuser.profilepic.url.to_s, :class => 'img-xs' %>
+                          <% elsif !rsvpuser.profilepic.url.nil? %>
+                            <% if rsvpuser.profilepic.url.match(/http/) %>
+                              <%= image_tag rsvpuser.profilepic.url, :class => 'img-xs' %>
+                            <% end %>
+                          <% else %>
+                            <%= image_tag "logoDigitalHollow300.png", :class => 'img-xs' %>
+                          <% end %>
+                        </span>
+                        <%= rsvpuser.name %></div>
+                    <% end %>
+                  <% end %>
+                  <% end %>
+                  <% rsvps.each do |rsvp| %>
+                    <% unless rsvp.email.blank? %>
+                      <% parts = rsvp.email.split('@') %>
+                      <div class="dropdown-item"><%= parts[0] %></div>
+                    <% end %>
+                  <% end %>
+                </div>
+                <% else %>
+                <div style="padding-left: 100px">&nbsp;</div>
+                <% end %>
+              </td>
 
               <!-- Share Buttons -->
               <td class=col-xs-2>
@@ -247,3 +246,4 @@
     $('[data-toggle="tooltip"]').tooltip()
   })
 </script>
+</div>
