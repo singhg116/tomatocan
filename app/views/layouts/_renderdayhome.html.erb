@@ -1,29 +1,29 @@
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0"></script>
 <% offset = -1 * Time.now.in_time_zone("Pacific Time (US & Canada)").gmt_offset/3600%>
 <%eventCount = 0%>
-
+<div style="overflow-x:auto; width: 100%">
 <div class="row">
 
-  <div class = "col-3" style="color:#000" >
-    <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; padding-left: 10px; font-size:140%; color:#8C1D40">
+  <div class = "col-xs-3" style="color:#000; padding-left:2.2%; width:35%" >
+    <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; font-size:140%; color:#8C1D40">
       <strong>Title</strong>
     </h2>
   </div>
 
-  <div class = "col-3" style="color:#000" >
-    <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; padding-left: 110px; font-size:140%; color:#8C1D40">
+  <div class = "col-xs-3" style="color:#000; width:21.5%" >
+    <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; font-size:140%; color:#8C1D40">
       <strong>Time</strong>
     </h2>
   </div>
 
-  <div class = "col-xs-3" style="color:#000" >
-    <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; padding-left: 160px; font-size:140%; color:#8C1D40">
+  <div class = "col-xs-3" style="color:#000; width:22.5%"" >
+    <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; font-size:140%; color:#8C1D40">
       <strong>Activity</strong>
     </h2>
   </div>
 
-  <div class = "col-xs-3" style="color:#000" >
-    <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; padding-left: 195px; font-size:140%; color:#8C1D40">
+  <div class = "col-xs-3" style="color:#000; width:20%"" >
+    <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; font-size:140%; color:#8C1D40">
       <strong>Share</strong>
     </h2>
   </div>
@@ -42,7 +42,7 @@
             <%eventCount += 1%>
             <% user = User.find(event.user_id) %>
             <tr>
-              <td class=col-xs-3>
+              <td class=col-xs-3 style="width:20%">
                 <div id = "calendar-event">
                   <%= link_to event.name, event_path(event.id), id: "calendar-event", title: event.desc %>
                 </div>
@@ -54,7 +54,7 @@
                 <% end %>
               </td>
 
-              <td class=col-xs-3>
+              <td class=col-xs-3 style="width:10%">
                 <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
                 <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
                 <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
@@ -65,7 +65,7 @@
               </td>
 
 
-              <td class=col-xs-3>
+              <td class=col-xs-3 style="width:20%">
                 <% edt = event.start_at + 3.hours %>
                 <% dayId = "week-day-#{currentDate.strftime('%A')}-#{i}"%>
                 <% timeId = "week-time-#{currentDate.strftime('%A')}-#{i}"%>
@@ -82,48 +82,7 @@
                 document.getElementById('<%=timeId%>').innerHTML = date.toLocaleString(undefined, optionsTime);
               </script>
 
-              <td class="col-xs-3">
-                <% rsvps = event.rsvpqs %>
-                 <% rsvpusers = event.users %>
-                <% if rsvps.count > 0 %>
-              <div class="btn-group">
-                <button type="button" class="btn btn-primary dropdown-toggl" style="border-radius: 4px; background-color: white; border-color: white; color: #8C1D40" data-toggle="dropdown" aria-haspopup="true" >
-                  <!--button for rsvp counter-->
-                  <span><%= image_tag "person.png", :class => 'img-xs' %></span><span><%= rsvps.count %></span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right rsvp-dropdown">
-                  <% rsvps.each do |rsvp| %>
-                  <%if !rsvp.user_id.nil? %>
-                    <% rsvpuser = User.find(rsvp.user_id) %>
-                    <%= link_to user_profile_path(rsvpuser.permalink) do %>
-                      <div class="dropdown-item">
-                        <span>
-                          <% if rsvpuser.profilepic.present? && rsvpuser.profilepic != '' %>
-                            <%= image_tag rsvpuser.profilepic.url.to_s, :class => 'img-xs' %>
-                          <% elsif !rsvpuser.profilepic.url.nil? %>
-                            <% if rsvpuser.profilepic.url.match(/http/) %>
-                              <%= image_tag rsvpuser.profilepic.url, :class => 'img-xs' %>
-                            <% end %>
-                          <% else %>
-                            <%= image_tag "logoDigitalHollow300.png", :class => 'img-xs' %>
-                          <% end %>
-                        </span>
-                        <%= rsvpuser.name %></div>
-                    <% end %>
-                  <% end %>
-                  <% end %>
-                  <% rsvps.each do |rsvp| %>
-                    <% unless rsvp.email.blank? %>
-                      <% parts = rsvp.email.split('@') %>
-                      <div class="dropdown-item"><%= parts[0] %></div>
-                    <% end %>
-                  <% end %>
-                </div>
-                <% end %>
-              </td>
-
-
-              <td class=col-xs-3>
+              <td class=col-xs-3 style="width:10%">
                 <% @rsvp = Rsvpq.new %>
                 <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
                 <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
@@ -173,8 +132,48 @@
                 <% end %>
               </td>
 
+              <td class="col-xs-3" style="width:10%">
+                <% rsvps = event.rsvpqs %>
+                 <% rsvpusers = event.users %>
+                <% if rsvps.count > 0 %>
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggl" style="border-radius: 4px; background-color: white; border-color: white; color: #8C1D40" data-toggle="dropdown" aria-haspopup="true" >
+                  <!--button for rsvp counter-->
+                  <span><%= image_tag "person.png", :class => 'img-xs' %></span><span><%= rsvps.count %></span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right rsvp-dropdown">
+                  <% rsvps.each do |rsvp| %>
+                  <%if !rsvp.user_id.nil? %>
+                    <% rsvpuser = User.find(rsvp.user_id) %>
+                    <%= link_to user_profile_path(rsvpuser.permalink) do %>
+                      <div class="dropdown-item">
+                        <span>
+                          <% if rsvpuser.profilepic.present? && rsvpuser.profilepic != '' %>
+                            <%= image_tag rsvpuser.profilepic.url.to_s, :class => 'img-xs' %>
+                          <% elsif !rsvpuser.profilepic.url.nil? %>
+                            <% if rsvpuser.profilepic.url.match(/http/) %>
+                              <%= image_tag rsvpuser.profilepic.url, :class => 'img-xs' %>
+                            <% end %>
+                          <% else %>
+                            <%= image_tag "logoDigitalHollow300.png", :class => 'img-xs' %>
+                          <% end %>
+                        </span>
+                        <%= rsvpuser.name %></div>
+                    <% end %>
+                  <% end %>
+                  <% end %>
+                  <% rsvps.each do |rsvp| %>
+                    <% unless rsvp.email.blank? %>
+                      <% parts = rsvp.email.split('@') %>
+                      <div class="dropdown-item"><%= parts[0] %></div>
+                    <% end %>
+                  <% end %>
+                </div>
+                <% end %>
+              </td>
+
               <!-- Share Buttons -->
-              <td class=col-xs-2>
+              <td class=col-xs-2 style="width:20%">
                 <% domainurl = "http://www.thinq.tv/"%>
 
                 <!-- Facebook Share -->
@@ -220,4 +219,5 @@
       </tbody>
     </table>
   <% end %>
+</div>
 </div>

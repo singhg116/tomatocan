@@ -92,18 +92,18 @@
 
       <div class="tabContainer text-center" style="background-color: #8C1D40; padding-right: 0.2rem; padding-left: 0.2rem; padding-bottom: 0.2rem" >
         <div class="buttonContainer pl-3 pr-3" >
-          <button onclick="showPanel(0,'#4caf50')" style="float: left; width: 20%; height:65px">List View</button>
+          <button onclick="showPanel(0,'#4caf50')" style="float: left; width: 20%; height:65px; min-width: 60px">List View</button>
           <button onclick="showPanel(1,'#4caf50')" style="float: left; width: 20%; height:65px; min-width: 60px">Daily View</button>
           <button onclick="showPanel(2,'#4caf50')" style="float: left; width: 20%; height:65px; min-width: 95px">Monthly View</button>
           <% if user_signed_in? %>
-            <%= link_to 'Post your Own Conversation', new_event_path, class: "btn btn-warning", title: "Host drop-in conversation sessions or invite people to ask questions about your area of expertise", style: "padding-top: 11px !important; width: 20%; height:65px; line-height: 250%; overflow: hidden" %>
+            <%= link_to 'Post Conversation', new_event_path, class: "btn btn-warning", title: "Host drop-in conversation sessions or invite people to ask questions about your area of expertise", style: "padding-top: 9px !important; width: 20%; height:65px; line-height: 250%; overflow: hidden" %>
           <% end %>
         </div>
 
         <div class="tabPanel">
           <%= render 'layouts/convocalendar', collection: @conversations %>
         </div>
-        <div class="tabPanel container-fluid" >
+        <div class="tabPanel container-fluid">
           <%= render 'layouts/weeklycalendar', eventPartial: "layouts/renderdayhome"%>
         </div>
         <div class="tabPanel container-fluid" >
