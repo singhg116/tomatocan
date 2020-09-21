@@ -56,7 +56,12 @@
 
 #navLink {
   &:hover {
-    text-decoration: underline;
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+  }
+  &:focus {
+    text-decoration: underline !important;
   }
 }
 

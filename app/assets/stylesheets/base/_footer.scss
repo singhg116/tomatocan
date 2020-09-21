@@ -21,6 +21,11 @@ footer a.f-link{
     color: white ; //was light grey, changed to white
 }
 
+.f-link:hover {
+  color: #ffffff !important;
+  text-decoration: underline !important;
+}
+
 footer p.f-header{
   color: $brand-secondary;
   font-size: 14px;
