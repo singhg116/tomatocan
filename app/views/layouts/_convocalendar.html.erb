@@ -5,7 +5,6 @@
 <% offset = -1 * Time.now.in_time_zone("Pacific Time (US & Canada)").gmt_offset/3600%>
 <%i = 0%>
 <br>
-<div style="overflow-x:auto">
 <div class="row">
 
   <div class = "col-xs-3" style="color:#000; margin-right: 5.5%; width: 34.5%; display: inline; float:left;" >
@@ -31,17 +30,17 @@
       <strong>Share</strong>
     </h2>
   </div>
-</div>
 
-<div style="width: 94%; margin: auto">
-  <hr>
+  <div style="width: 94%; margin: auto">
+    <hr>
+  </div>
 </div>
 
 <div class="row">
     <% if @conversations.count != 0 %>
       <% @calendar_events.sort_by{|t| t.start_at}.each do |event| %>
           <% user = User.find(event.user_id) %>
-          <div class = "col-xs-3" style="text-align: left; padding-left: 4%; width: 30%; display: inline; float:left;">
+          <div class = "col-xs-3" style="text-align: left; padding-left: 4%; width: 30%">
             <%= link_to event.name, event_path(event.id), class: "h4", style: "font-weight:700; color: #222222;", title: event.desc %><br>
             <%= link_to user.name, user.permalink, style:"color:#6c757d" %>
             <% if user_signed_in? %>
@@ -50,7 +49,7 @@
               <% end %>
             <% end %>
           </div>
-          <div class = "col-xs-3" style="width: 10%; min-width: 70px; display: inline; float:left;">
+          <div class = "col-xs-3" style="width: 10%; min-width: 70px">
             <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
             <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
             <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
@@ -59,7 +58,7 @@
             <div style="padding-left: 100px">&nbsp;</div>
             <%end%>
           </div>
-          <div class = "col-xs-3" style="color:#000; text-align: left; width: 20%; display: inline; float:left;">
+          <div class = "col-xs-3" style="color:#000; text-align: left; width: 20%">
             <span style="font-size:125%;" id=convocalendar-time-day<%=i%>></span>
             <br>
             <span style="font-size:90%; color: #6c757d;" id=convocalendar-time<%=i%>></span>
@@ -73,7 +72,7 @@
             document.getElementById('convocalendar-time<%=i%>').innerHTML = date.toLocaleString(undefined, optionsTime);
           </script>
 
-          <div class="col-xs-3" style="margin-top: 6px; width: 10%; display: inline; float:left;">
+          <div class="col-xs-3" style="margin-top: 6px; width: 10%">
 
             <% @rsvp = Rsvpq.new %>
             <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
@@ -132,7 +131,7 @@
             <% end %>
           </div>
 
-          <div class="col-xs-3" style="width:10%; display: inline; float:left;">
+          <div class="col-xs-3" style="width:10%">
               <% rsvps = event.rsvpqs %>
               <% rsvpusers = event.users %>
               <% if rsvps.count > 0 %>
@@ -175,7 +174,7 @@
           </div>
 
           <!-- Share Buttons -->
-          <div class = "col-xs-3" style="margin-top: 12px; width: 15%; display: inline; float:left;">
+          <div class = "col-xs-3" style="margin-top: 12px; width: 15%">
             <% domainurl = "http://www.thinq.tv/"%>
 
             <!-- Facebook Share -->
@@ -208,20 +207,17 @@
 
           </div>
 
-</div>
-
-          <div style="width: 94%; margin: auto">
+          <div style="width: 92%; margin: auto">
             <hr>
           </div>
 
         <% i += 1 %>
       <% end %>
     <% end %>
+</div>
 
 <script>
   $(function () {
     $('[data-toggle="tooltip"]').tooltip()
   })
 </script>
-
-</div>

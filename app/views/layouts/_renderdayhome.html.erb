@@ -165,7 +165,7 @@
                   <% rsvps.each do |rsvp| %>
                     <% unless rsvp.email.blank? %>
                       <% parts = rsvp.email.split('@') %>
-                      <div class="dropdown-item"><%= parts[0] %></div>
+                      <div class="dropdown-item" style="overflow: visible"><%= parts[0] %></div>
                     <% end %>
                   <% end %>
                 </div>
