@@ -41,11 +41,11 @@
       <% @calendar_events.sort_by{|t| t.start_at}.each do |event| %>
           <% user = User.find(event.user_id) %>
           <div class = "col-xs-3" style="text-align: left; padding-left: 4%; width: 30%">
-            <%= link_to event.name, event_path(event.id), class: "h4", style: "font-weight:700; color: #222222;", title: event.desc %><br>
-            <%= link_to user.name, user.permalink, style:"color:#6c757d" %>
+            <%= link_to event.name, event_path(event.id), class: "h4", style: "font-weight:700; color: #222222; font-size: 150%", title: event.desc %><br>
+            <%= link_to user.name, user.permalink, style:"color:#6c757d; font-size: 100%" %>
             <% if user_signed_in? %>
               <% if event.user_id == current_user.id %>
-                <br><%= link_to '(Edit Conversation)', edit_event_path(event.id), style:"color:#6c757d" %>
+                <br><%= link_to '(Edit Conversation)', edit_event_path(event.id), style:"color:#6c757d; font-size: 100%" %>
               <% end %>
             <% end %>
           </div>
@@ -61,7 +61,7 @@
           <div class = "col-xs-3" style="color:#000; text-align: left; width: 20%">
             <span style="font-size:125%;" id=convocalendar-time-day<%=i%>></span>
             <br>
-            <span style="font-size:90%; color: #6c757d;" id=convocalendar-time<%=i%>></span>
+            <span style="font-size:100%; color: #6c757d;" id=convocalendar-time<%=i%>></span>
           </div>
           <script>
             var date = new Date(Date.parse("<%= event.start_at.strftime("%FT%T%:z") %>"));

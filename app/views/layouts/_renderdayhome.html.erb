@@ -44,9 +44,9 @@
             <tr>
               <td class=col-xs-3 pl-2 style="width:20%">
                 <div id = "calendar-event">
-                  <%= link_to event.name, event_path(event.id), id: "calendar-event", title: event.desc %>
+                  <%= link_to event.name, event_path(event.id), id: "calendar-event", title: event.desc, style: "font-size: 150%" %>
                 </div>
-                <%= link_to user.name, user.permalink, style: "color: #6c757d"%>
+                <%= link_to user.name, user.permalink, style: "color: #6c757d; font-size: 100%"%>
                 <% if user_signed_in? %>
                   <% if event.user_id == current_user.id %>
                     <%= link_to '(Edit Conversation)', edit_event_path(event.id), id: "calendar-host", style: "color: #6c757d"%>
@@ -69,9 +69,9 @@
                 <% edt = event.start_at + 3.hours %>
                 <% dayId = "week-day-#{currentDate.strftime('%A')}-#{i}"%>
                 <% timeId = "week-time-#{currentDate.strftime('%A')}-#{i}"%>
-                <span style="font-size:125%;" id="<%=dayId%>"></span>
+                <span style="font-size:140%;" id="<%=dayId%>"></span>
                 <br>
-                <span style="font-size:90%; color: #6c757d;"id="<%=timeId%>"></span>
+                <span style="font-size:100%; color: #6c757d;"id="<%=timeId%>"></span>
               </td>
               <script>
                 var date = new Date(Date.parse("<%= event.start_at.strftime("%FT%T%:z") %>"));
