@@ -89,7 +89,7 @@
                 <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
                   <%= link_to " Join " + event.topic, user_viewer_path(user.permalink, chatrm: event.topic , event: event.id), class: "btn btn-primary btn-sm" %>
                   <div id="live<%=eventCount%>"></div>
-                  <script>
+                  <script> this fcn is useless and disabled. It counts by eventid instead of chatrm. last_viewed should be a string not an integer. We could change the database to make it a string however we may eventually count by eventid. This fcn is not importante enough to bother at this time.
                     function liveCount() {
                       $.get("/conversations/livecounter", {id: "<%=event.id%>"}, function(data) {
                         if (data.success == true)
@@ -147,7 +147,10 @@
                       <%= f.submit "RSVP", :style => "color: #8C1D40; background-color: white; border-color: #8C1D40; margin-top: 2px; padding: 2px 20px; font-weight: normal; border-radius:4px; border: 1px solid; width:95px; height:30px; margin-left: 5px", :id => "RSVPsubmit" %>
                     <% else %>
                       <%= f.text_field :email, :style => "border: 1px solid grey; border-radius: 0px;", placeholder: "Enter email", :class =>"enter_email" %>
-                      <%= f.submit "RSVP", :style => "color: #8C1D40; background-color: white; border-color: #8C1D40; margin-top: 2px; padding: 2px 20px; font-weight: normal; border-radius:4px; border: 1px solid", :id => "RSVPsubmit" %>
+                      <%= f.submit "RSVP", :style => "color: #fff; background-color: #880f42; padding: 2px 20px; font-weight: normal; border-radius:0px;", :id => "RSVPsubmit" %>
+                  <!-- disable until ssl working
+                      <div ><%= recaptcha_tags :style => "transform:scale(0.75);transform-origin:0 0; margin-top:10px; margin-bottom:-20px" %></div>
+                  -->
                     <% end %>
                   <% end %>
                 <% end %>

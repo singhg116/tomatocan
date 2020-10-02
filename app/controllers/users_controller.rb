@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   layout :resolve_layout
 
   before_action :set_user, except: [:new, :index, :supportourwork, :youtubers, :create, :stripe_callback ]
-  before_action :authenticate_user!, only: [:update, :dashboard, :controlpanel ]
+  before_action :authenticate_user!, only: [:update, :dashboard, :controlpanel, :viewer ]
 
   #before_action :correct_user, only: [:dashboard, :user_id]
   #before_action :correct_user, only: [:controlpanel]
@@ -14,15 +14,10 @@ class UsersController < ApplicationController
     @users =   userswithpicorder.paginate(:page => params[:page], :per_page => 32)
   end
 
-  def show
-    # @redirecturl = "https://connect.stripe.com/oauth/authorize?response_type=code&client_id=" + STRIPE_CONNECT_CLIENT_ID + "&scope=read_write"
+  def viewer
+    @users = User.where('last_viewed @> ARRAY[?]::integer[]', [params[:event]]) #This unhelpful array has been disabled. Should be an integer
+    @count = @users.count
     pdtnow = Time.now - 7.hours + 5.minutes
-    id = @user.id
-    currconvo = Event.where( "start_at < ? AND end_at > ? AND user_id = ?", pdtnow, pdtnow, id ).first
-    if currconvo.present?
-      @displayconvo = currconvo
-    end
-
     currconvos = Event.where("start_at < ? AND end_at > ?", pdtnow, pdtnow)
     @otherconvos = []
     if currconvos.present?
@@ -32,7 +27,16 @@ class UsersController < ApplicationController
         end
       end
     end
+  end
 
+  def show
+    # @redirecturl = "https://connect.stripe.com/oauth/authorize?response_type=code&client_id=" + STRIPE_CONNECT_CLIENT_ID + "&scope=read_write"
+    pdtnow = Time.now - 7.hours + 5.minutes
+    id = @user.id
+    currconvo = Event.where( "start_at < ? AND end_at > ? AND user_id = ?", pdtnow, pdtnow, id ).first
+    if currconvo.present?
+      @displayconvo = currconvo
+    end
 
     rsvps = Event.where('id IN (SELECT event_id FROM rsvpqs WHERE rsvpqs.user_id = ?) and start_at > ?', @user.id, pdtnow )
     @rsvpevents = rsvps.where( "start_at > ?", pdtnow)
@@ -162,20 +166,27 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
-    if @user.save
-      redirect_to new_user_session_path, success: "You have successfully signed up! An email has been sent for you to confirm your account."
-      UserMailer.with(user: @user).welcome_email.deliver_later
-    else
-       redirect_to new_user_signup_path, danger: signup_error_message
-      #redirect_to new_user_signup_path
-      @user.errors.clear
-    end
+    #@recaptcha_checked = verify_recaptcha(model: @user)
+    #if @recaptcha_checked 
+      if @user.save
+        sign_in @user
+        redirect_to user_profileinfo_path(current_user.permalink) 
+        #email confirmation not really helpful, more of an annoyance. Seems to be broken on new heroku
+        #redirect_to new_user_session_path, success: "You have successfully signed up! An email has been sent for you to confirm your account."
+        #UserMailer.with(user: @user).welcome_email.deliver_later
+      else
+        redirect_to new_user_signup_path, danger: signup_error_message
+        @user.errors.clear
+      end
+    #else 
+    #  redirect_to new_user_signup_path, danger: signup_error_message + "Please check the captcha box!"
+    #  @user.errors.clear
+    #end
   end
 
   # PUT /users/1.json
   def update
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
       bypass_sign_in @user
       updateEmailMsg
       redirect_to user_profile_path(current_user.permalink)
@@ -222,7 +233,7 @@ class UsersController < ApplicationController
                                  :about, :author, :password_confirmation, :genre1, :genre2, :genre3,
                                  :twitter, :title, :profilepic, :remember_me,
                                  :facebook, :youtube1, :youtube2,
-                                 :youtube3, :updating_password,
+                                 :youtube3, :updating_password, :attendid,
                                  :agreeid, :purchid, :bannerpic, :on_password_reset, :stripesignup )
   end
 
