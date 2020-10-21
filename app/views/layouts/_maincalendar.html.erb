@@ -110,13 +110,8 @@
                   <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
                   <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
 
-<<<<<<< HEAD
             <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
-              <%= link_to " Join " + event.topic, user.permalink + "/viewer?chatrm=" + event.topic, class: "btn btn-primary btn-sm" %>
-=======
-                  <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
-                  <%= link_to " Join " + event.topic, user.permalink + "/viewer?chatrm=" + event.topic, class: "btn btn-primary text-white fa fa-video-camera", style: "padding: 2px 20px; margin-left: 10px"%>
->>>>>>> 4bd60f8e9c85ceb0544d4210fbd345dd7525b984
+              <%= link_to " Join " + event.topic, user.permalink + "/viewer?chatrm=" + event.topic, class: "btn btn-primary text-white fa fa-video-camera", style: "padding: 2px 20px; margin-left: 10px"%>
 
                   <% else %>
                   <%= form_for(@rsvp) do |f| %>
@@ -210,8 +205,5 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
-<<<<<<< HEAD
+
 </script>
-=======
-</script>
->>>>>>> 4bd60f8e9c85ceb0544d4210fbd345dd7525b984

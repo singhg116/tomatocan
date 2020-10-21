@@ -166,6 +166,105 @@ footer small {
   }
 }
 
+.btn-primary-week {
+    color: #ffffff !important;
+    background-color: #8C1D40 !important;
+  }
+
+
+.btn-primary-week:hover {
+    color: #8C1D40 !important;
+    background-color: #ffffff !important;
+    border-color: #ffffff;
+}
+
+.btn-primary-week:focus {
+    color: #8C1D40 !important;
+    background-color: #ffffff !important;
+    border-color: #ffffff;
+}
+
+.btn-warning {
+    color: #8c1d40 !important;
+    background-color: $brand-secondary !important;
+    height: 50px;
+    margin-bottom: 9px !important;
+    float: right;
+    font-weight: bold !important;
+    font-size: 120% !important;
+  }
+
+  .btn-join {
+      color: $brand-primary !important;
+      background-color: #FFB704 !important;
+      border-color: #FFB704 !important;
+      padding-top: 9px !important;
+      margin-right: 0px !important;
+      margin-top: 7px !important;
+      margin-bottom: 30px !important;
+      font-weight: bold !important;
+      font-size: 120% !important;
+      width: 48%;
+      float: right;
+    }
+
+  .btn-join:hover {
+    color: #ffffff !important;
+    background-color: #FFB704 !important;
+    border-spacing: 10px;
+    border-color: black;
+  }
+
+  .btn-learn {
+      color: $brand-white !important;
+      background-color: $brand-primary !important;
+      border-color: $brand-white !important;
+      padding-top: 7px !important;
+      margin-left: 0px !important;
+      margin-top: 30px !important;
+      margin-bottom: 30px !important;
+      font-size: 130% !important;
+      width: 48%;
+      float: left;
+    }
+
+  .btn-learn:hover {
+      color: #8C1D40 !important;
+      background-color: #ffffff !important;
+      border-color: #ffffff;
+  }
+
+  .btn-countdown {
+      color: #ffffff !important;
+      background-color: $brand-secondary !important;
+      border-color: $brand-secondary !important;
+      font-weight: bold !important;
+      font-size: 120% !important;
+      width: 53%;
+      float: center;
+    }
+
+.btn {
+    display: inline-block;
+    margin: 4px;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 //when hovering over logo make it slightly bigger
 #navbarLogo {
   &:hover {
@@ -276,7 +375,7 @@ ul li a.toggle:hover {
   width: 70px;
 }
 
-//PANELS.SCSS: This stylesheet is for panels found in views/layouts and for users/controlpanel 
+//PANELS.SCSS: This stylesheet is for panels found in views/layouts and for users/controlpanel
 
 /* _maincalendar */
 
