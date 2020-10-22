@@ -37,10 +37,18 @@ body {
   overscroll-behavior: none !important;
 }
 
-.img-xs {
-  height: 18px;
-  width: 18px;
+.img-xs{
+  height: 30px;
+  width: 22px;
   margin-right: 10px;
+  padding-bottom: 5px;
+}
+
+.img-live{
+  height: 30px;
+  width: 55px;
+  margin-right: 50px;
+  margin-top: 10px;
 }
 
 .navbar-default {
@@ -107,29 +115,32 @@ h2 {
 //FOOTER.SCSS: This is all the css used for the footer
 footer {
   position: relative;
-  padding-top: 15px;
+  padding-top: 35px;
   padding-bottom: 15px;
   margin: 0;
-  margin-top: 50px;
+  margin-top: 30px;
   text-align: left;
-  background-color: $brand-primary;
+  background-color: #2B2D2F;
   font-family: Helvetica;
   font-size: 12px;
 }
 
 #copyright {
   position: absolute;
+  font-size: 15px;
   bottom: 0;
   right: 0;
 }
 
-
-footer a.f-link {
-  color: $brand-gray;
+//gives Hover-style to the Footer links
+footer a.f-link{
+    color: $brand-white; //was light grey, changed to white
 
   &:hover {
-    text-decoration: none;
+    color: #ffffff !important;
+    text-decoration: underline !important;
   }
+
 }
 
 footer p.f-header {
@@ -142,7 +153,18 @@ footer div.col-sm-3 {
 }
 
 footer small {
-  color: $brand-secondary;
+  color: white;
+  margin-right: 40px;
+}
+
+//Gives style to the phone #, prohibits underline text-decoration
+footer a.f-phone {
+  color: $brand-white;
+
+  &:hover {
+    color: #ffffff !important;
+    text-decoration: none !important;
+  }
 }
 
 
@@ -153,7 +175,6 @@ footer small {
   .btn-primary {
     color: $brand-gray;
     background-color: $brand-primary;
-    ;
     border-color: #771936;
     font: "Helvetica"
   }
@@ -166,24 +187,46 @@ footer small {
   }
 }
 
+//when hovering over logo make it slightly bigger
+#navbarLogo {
+  &:hover {
+    transform: scale(1.15) rotate(-12deg);
+  }
+}
+
+#navLink {
+  &:hover {
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+  }
+  &:focus {
+    text-decoration: underline !important;
+  }
+}
+
+// Maybe the Buttons on the Daily/List/Monthly view????
 .btn-primary-week {
     color: #ffffff !important;
     background-color: #8C1D40 !important;
+    width:120px;
   }
 
-
+// Maybe the Buttons on the Daily/List/Monthly view????
 .btn-primary-week:hover {
     color: #8C1D40 !important;
     background-color: #ffffff !important;
     border-color: #ffffff;
 }
 
+// Maybe the Buttons on the Daily/List/Monthly view????
 .btn-primary-week:focus {
     color: #8C1D40 !important;
     background-color: #ffffff !important;
     border-color: #ffffff;
 }
 
+//style for "Post Conversation" button
 .btn-warning {
     color: #8c1d40 !important;
     background-color: $brand-secondary !important;
@@ -194,6 +237,7 @@ footer small {
     font-size: 120% !important;
   }
 
+  //can delete this since "Join Conversation" was removed
   .btn-join {
       color: $brand-primary !important;
       background-color: #FFB704 !important;
@@ -208,6 +252,7 @@ footer small {
       float: right;
     }
 
+  //can delete this since "Join Conversation" was removed.
   .btn-join:hover {
     color: #ffffff !important;
     background-color: #FFB704 !important;
@@ -215,6 +260,7 @@ footer small {
     border-color: black;
   }
 
+  //can delete this since "Learn More" was removed
   .btn-learn {
       color: $brand-white !important;
       background-color: $brand-primary !important;
@@ -228,6 +274,7 @@ footer small {
       float: left;
     }
 
+  //can delete this since "Learn More" was removed
   .btn-learn:hover {
       color: #8C1D40 !important;
       background-color: #ffffff !important;
@@ -263,13 +310,6 @@ footer small {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-}
-
-//when hovering over logo make it slightly bigger
-#navbarLogo {
-  &:hover {
-    transform: scale(1.15) rotate(-12deg);
-  }
 }
 
 //FAQ.SCSS: This is all the css specific to the FAQ page
@@ -394,13 +434,36 @@ ul li a.toggle:hover {
 
 #calendar-event {
   display: block;
-  font-size: 1em;
-  font-weight: 600;
+  font-size: 1.5rem;
+  padding: 0px !important;
+  font-family: sans-serif;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #222222;
 }
 
 #calendar-host {
   display: block;
   font-size: 1.0rem;
+}
+
+//Is this needed??
+#calendar-time {
+  display: block;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+//Is this needed??
+#social-button {
+  display: inline-block;
+  padding: 4px;
+}
+
+//Is this needed??
+#social-button-in {
+  display: inline-block;
+  padding-left: 4px;
 }
 
 /* CSS for users/controlpanel */
@@ -411,7 +474,7 @@ ul li a.toggle:hover {
 
 /* This stylesheet is used for the calendar in home page and drop-in page */
 th {
-  font-size: 12px;
+  font-size: 16px;
   padding: 6px;
   border: 1px solid #999;
   background: #8C1D40;
@@ -421,14 +484,20 @@ th {
 
 td {
   font-size: 10px;
-  padding: 6px;
+  //padding: 6px;
   border: 1px solid #999;
   background: #FFF;
   color: #020202;
   height: 150px;
   vertical-align: top;
-  font-size: 16px;
+  font-size: 16px !important;
+  padding-top: 0px !important;
+  padding-right: 0px !important;
+  padding-bottom: 0px !important;
+  //padding-left: 0px !important;
   overflow: hidden;
+  font-family: sans-serif;
+
 }
 
 .today {
@@ -439,6 +508,10 @@ td {
   text-align: left;
   border-collapse: collapse;
   width: 100%;
+}
+
+.social-buttons:hover {
+  text-decoration: none !important;
 }
 
 .buttonContainer button {
@@ -459,12 +532,27 @@ td {
 
 .tabPanel {
   height: auto;
+  width: 100%;
   background-color: gray;
   color: white;
+  //margin: auto;
   padding-top: 10px;
+  padding-right: 0px;
+  padding-left: 0px;
+  //padding-bottom: 0.2rem;
   box-sizing: border-box;
+  //box-shadow: 0px 5px 5px grey;
+  //border-radius: 4px;
   font-family: sans-serif;
   display: none;
+}
+
+.container-fluid{
+  width: 100%;
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 //SHOW.SCSS: Event show page stylesheet
