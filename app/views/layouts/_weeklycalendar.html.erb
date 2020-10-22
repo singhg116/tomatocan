@@ -1,7 +1,5 @@
-<br>
-
-<div class="container-fluid" style="height:30%">
-  <div class="row justify-content-center" style="position:relative; bottom:35px; width: 100%; margin: auto; padding-bottom:25px; background-color: #8c1d40">
+<div class="container-fluid pl-0 pr-0" style="height:30%; width: 100%">
+  <div class="row justify-content-center" style="position:relative; bottom:0.7rem; width: 100%; padding-bottom:15px;  margin:auto; background-color: #8c1d40">
     <% getWeekDays.each_with_index do |date, index|%>
     <button onclick="Panel1(<%=index%>,'#900C3F')" class="btn btn-primary-week weekBtn" style="border-color: #ffffff;border-width: thin; width: 12%; min-width: 90px; overflow: hidden">
       <%=date.strftime("%A")%><br><%= date.month%><%= "/" %><%= date.day %>

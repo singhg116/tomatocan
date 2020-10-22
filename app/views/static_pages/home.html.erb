@@ -56,8 +56,7 @@
     <div class="col-lg-6 col-md-12 col-sm-12 pb-5 pt-3 mt-3" style="margin-top: 0rem !important">
       <!--study hall column; col-md-6 col-lg-6 col-sm-12 col-xs-12-->
       <%= image_tag("activism_hall.jpg", class:" mx-auto d-block  pb-3", style: "border-radius:112px; width:50%;")%>
-      <h2 class="text-center"><strong>
-        Drop-In Hours</strong>
+      <h2 class="text-center" style="margin-top: 4px"><strong>Drop-In Hours</strong>
       </h2>
       <hr class="black-divider" style="width: 35%; border-width: 3.5px; border-color: black;">
       <p class = "text-center">
@@ -92,7 +91,7 @@
         <div class="tabPanel">
           <%= render 'layouts/convocalendar', collection: @conversations %>
         </div>
-        <div class="tabPanel container-fluid">
+        <div class="tabPanel container-fluid pl-0 pr-0">
           <%= render 'layouts/weeklycalendar', eventPartial: "layouts/renderdayhome"%>
         </div>
         <div class="tabPanel container-fluid">

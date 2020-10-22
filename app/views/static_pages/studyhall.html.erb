@@ -1,5 +1,5 @@
 <div class="team pt-3 mt-3">
-  <div class="container border shadow">
+  <div class="container" style="border: 1px solid #8C1D40; border-radius: 5px">
     <br>
     <% flash.each do |key, value| %>
         <div class="<%= flash_class(key) %>" style = "height:50px">
@@ -20,8 +20,8 @@
 
       </div>
 
-      <div class="col-lg-5 col-md-12 col-xs-12 pt-3 pl-4" style="padding-top: 40px !important">
-        <div class="pt-1 text-center" id="countdown_clock">
+      <div class="col-lg-5 col-md-12 col-xs-12 pl-4">
+        <div class="text-center" id="countdown_clock">
           <%= render 'layouts/countdown_clockstudy' %>
           <% if @displayresearch.present? %>
           <% if (Time.current > Time.parse(@start_timeresearch)) && (Time.current < (Time.parse(@start_timeresearch) + 1.hour)) %>
@@ -39,27 +39,27 @@
   </div>
 </div>
 
+<br>
+
 <div class="tabContainer">
   <div class="justify-content-center">
-    <div class="col-sm-12">
-      <h1 class = "text-center text-primary pl-4 ml-1"><b>Drop-In Schedule</b></h1>
-    </div>
+      <div class="convo-container text-center" style="background-color: white">
+        <h2 class = "text-center" style="font-size: 250%"><strong>Drop-In Schedule<strong>
+        </h2>
+        <hr class="title-divider" style="width: 30%; border-width: 3.5px; border-color: #FFC627;">
+  </div>
 
-    <div>
-         <% if user_signed_in? %>
-            <br><p class="text-center">Don't see your desired hour on the schedule yet? <br>
-            <%= link_to 'Post Drop-In Hour', new_event_path, class: "btn btn-warning", title: "Host drop-in sessions or invite people to ask questions about your area of expertise" %>
-          <% end %></p>
-    </div>
-    <br>
-    <div class="col-md-12 col-sm-12 col-xs-10 pl-0 ml-2 justify-content-center pr-1">
-      <div class="buttonContainer text-center pr-5"><br>
-        <button onclick="showPanel(0,'#2196f3')">Daily View </button>
-        <button onclick="showPanel(1,'#4caf50')">Monthly View </button>
+    <div class="tabContainer text-center" style="width: 95%; margin: auto; background-color: #8C1D40; border-radius: 4px; padding-right: 0.2rem; padding-left: 0.2rem; padding-bottom: 0.2rem; box-shadow: 0px 5px 5px grey;">
+      <div class="buttonContainer text-center pl-3 pr-3" style="height: 7rem;"><br>
+        <button onclick="showPanel(0,'#2196f3')" class= "btn btn-primary-week" style="float: left; width: 20%; height:65px; min-width: 60px; border-color: #ffffff;">Daily View </button>
+        <button onclick="showPanel(1,'#4caf50')" class= "btn btn-primary-week" style="float: left; width: 20%; height:65px; min-width: 95px; border-color: #ffffff;">Monthly View </button>
+        <% if user_signed_in? %>
+          <%= link_to 'Post Drop-In Hour', new_event_path, class: "btn btn-warning", title: "Host drop-in sessions or invite people to ask questions about your area of expertise", style: "padding-top: 9px !important; width: 20%; height:65px; line-height: 250%; min-width: 95px; overflow: hidden" %>
+        <% end %>
       </div>
 
      <div class="tabPanel text-center w-100" >
-      <div class="container-fluid " id="calendar">
+      <div class="container-fluid pl-0 pr-0" id="calendar">
         <div class="col-sm-12" style="padding-left: 0px !important; padding-right: 0px !important">
         <%= render 'layouts/weeklycalendar',  eventPartial: "layouts/renderday"%>
         </div>
