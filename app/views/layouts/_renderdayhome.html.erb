@@ -2,38 +2,39 @@
 <% offset = -1 * Time.now.in_time_zone("Pacific Time (US & Canada)").gmt_offset/3600%>
 <%eventCount = 0%>
 <div style="overflow-x:auto; width: 100%">
+  <div class="row">
+
+    <div class = "col-xs-3" style="color:#000; margin-right: 5.5%; width: 34.5%; display: inline; float:left;" >
+      <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; padding-left: 11.5%; font-size:140%; color:#8C1D40">
+        <strong>Title</strong>
+      </h2>
+    </div>
+
+    <div class = "col-xs-3" style="color:#000; margin-right:5%; width: 16.5%; display: inline; float:left;" >
+      <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; font-size:140%; color:#8C1D40">
+        <strong>Time</strong>
+      </h2>
+    </div>
+
+    <div class = "col-xs-3" style="color:#000; margin-right:5%; width: 16%; display: inline; float:left;" >
+      <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; font-size:140%; color:#8C1D40">
+        <strong>Activity</strong>
+      </h2>
+    </div>
+
+    <div class = "col-xs-3" style="color:#000; width: 16%; display: inline; float:left;" >
+      <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; font-size:140%; color:#8C1D40">
+        <strong>Share</strong>
+      </h2>
+    </div>
+
+    <div style="width: 94%; margin: auto;">
+      <hr>
+    </div>
+  </div>
+
+<!-- try changing to "panel panel-default table-responsive" if error -->
 <div class="row">
-
-  <div class = "col-xs-3" style="color:#000; padding-left:2.2%; width:35%" >
-    <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; font-size:140%; color:#8C1D40">
-      <strong>Title</strong>
-    </h2>
-  </div>
-
-  <div class = "col-xs-3" style="color:#000; width:21.5%" >
-    <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; font-size:140%; color:#8C1D40">
-      <strong>Time</strong>
-    </h2>
-  </div>
-
-  <div class = "col-xs-3" style="color:#000; width:22.5%"" >
-    <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; font-size:140%; color:#8C1D40">
-      <strong>Activity</strong>
-    </h2>
-  </div>
-
-  <div class = "col-xs-3" style="color:#000; width:20%"" >
-    <h2 class="text-center" style="text-align: left !important; margin-bottom:0px; font-size:140%; color:#8C1D40">
-      <strong>Share</strong>
-    </h2>
-  </div>
-
-  <div style="width: 98%; margin: auto; height:20px">
-    <hr>
-  </div>
-</div>
-
-<div class="panel panel-default table-responsive">
   <% if @calendar_events_all.count != 0 %>
     <table class="table table-hover" id=calendar>
       <tbody>
@@ -42,11 +43,11 @@
             <%eventCount += 1%>
             <% user = User.find(event.user_id) %>
             <tr>
-              <td class=col-xs-3 pl-2 style="width:20%">
+              <td class="col-xs-3" pl-2 style="text-align: left; padding-left: 4%; width: 30%;">
                 <div id = "calendar-event">
-                  <%= link_to event.name, event_path(event.id), id: "calendar-event", title: event.desc, style: "font-size: 150%" %>
+                  <%= link_to event.name, event_path(event.id), id: "calendar-event", title: event.desc, style: "font-weight:700; color: #222222;" %>
                 </div>
-                <%= link_to user.name, user.permalink, style: "color: #6c757d; font-size: 100%"%>
+                <%= link_to user.name, user.permalink, style: "color: #6c757d"%>
                 <% if user_signed_in? %>
                   <% if event.user_id == current_user.id %>
                     <%= link_to '(Edit Conversation)', edit_event_path(event.id), id: "calendar-host", style: "color: #6c757d"%>
@@ -54,24 +55,23 @@
                 <% end %>
               </td>
 
-              <td class=col-xs-3 style="width:10%">
+              <td class="col-xs-3" style="width:10%; min-width: 70px;">
                 <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
                 <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
                 <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
                 <span><%= image_tag "live2.png" , :class => 'img-live'%></span>
                 <% else %>
-                <div style="padding-left: 100px">&nbsp;</div>
+                <div style="padding-left: 75px">&nbsp;</div>
                 <%end%>
               </td>
 
-
-              <td class=col-xs-3 style="width:20%">
+              <td class="col-xs-3" style="color:#000; text-align: left; width: 20%;">
                 <% edt = event.start_at + 3.hours %>
                 <% dayId = "week-day-#{currentDate.strftime('%A')}-#{i}"%>
                 <% timeId = "week-time-#{currentDate.strftime('%A')}-#{i}"%>
-                <span style="font-size:140%;" id="<%=dayId%>"></span>
+                <span style="font-size:125%;" id="<%=dayId%>"></span>
                 <br>
-                <span style="font-size:100%; color: #6c757d;"id="<%=timeId%>"></span>
+                <span style="font-size:90%; color: #6c757d;"id="<%=timeId%>"></span>
               </td>
               <script>
                 var date = new Date(Date.parse("<%= event.start_at.strftime("%FT%T%:z") %>"));
@@ -82,13 +82,13 @@
                 document.getElementById('<%=timeId%>').innerHTML = date.toLocaleString(undefined, optionsTime);
               </script>
 
-              <td class=col-xs-3 style="width:10%">
+              <td class="col-xs-3" style="margin-top: 6px; width: 10%; padding-left: 0px;">
                 <% @rsvp = Rsvpq.new %>
                 <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
                 <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
 
                 <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
-                  <%= link_to " JOIN ", user_viewer_path(user.permalink, chatrm: event.topic , event: event.id), class: "btn btn-primary", style:"font-size: 14px; width: 70px; height:25px; line-height:11px; margin-left:1px" %>
+                  <%= link_to " JOIN ", user_viewer_path(user.permalink, chatrm: event.topic , event: event.id), class: "btn btn-primary", style:"font-size: 17px; width: 83px; height:28px; line-height:14px; margin-left:1px" %>
                   <div id="live<%=eventCount%>"></div>
                   <script>
                     function liveCount() {
@@ -126,7 +126,7 @@
                         <%= f.submit "RSVP", :style => "color: #8C1D40; background-color: white; border-color: #8C1D40; margin-top: 2px; padding: 2px 20px; font-weight: normal; border-radius:4px; border: 1px solid", :id => "RSVPsubmit" %>
                       <% else %>
                         <%= f.text_field :email, :style => "border: 1px solid grey; border-radius: 0px;", placeholder: "Enter email", :class =>"enter_email" %>
-                        <%= f.submit "RSVP", :style => "color: #fff; background-color: #880f42; padding: 2px 20px; font-weight: normal; border-radius:0px;", :id => "RSVPsubmit" %>
+                        <%= f.submit "RSVP", :style => "color: #8C1D40; background-color: white; margin-color: #8C1D40; margin-top: 2px; padding: 2px 20px; font-weight: normal; border-radius:4px; border: 1px solid", :id => "RSVPsubmit" %>
                       <!-- disable until ssl working
                         <div><br><%= recaptcha_tags :style => "transform:scale(0.75);transform-origin:0 0" %></div>
                         -->
@@ -176,37 +176,39 @@
               </td>
 
               <!-- Share Buttons -->
-              <td class=col-xs-2 style="width:20%">
+              <td class="col-xs-3" style="margin-top: 12px; width: 15%">
                 <% domainurl = "http://www.thinq.tv/"%>
 
-                <!-- Facebook Share -->
-                <a href="http://www.facebook.com/sharer.php?u=<%= domainurl %><%= user.permalink %>%"
-                  onclick="window.open('http://www.facebook.com/sharer.php?u=<%= domainurl %><%= user.permalink %>',
-                  'newwindow',
-                  'width=600,height=400,top=100,left=300');
-                  return false;">
-                  <%= image_tag("social-share-button/facebook.png")%>
-
-                </a>&nbsp
-
-                  <!-- Twitter Share -->
-                  <a href="https://twitter.com/intent/tweet?text=Join <%= user.name %>'s' Conversation to talk about: <%= event.name + "," %> <%= event.start_at.strftime("%B %d, %I:%M %p")%> PDT: http://www.thinq.tv/<%= user.permalink %>%20Every%20afternoon%20and%20evening%20ThinQ.tv%20has%20meaningful%20live%20video%20chat%20conversations%20to%20get%20you%20motivated%20for%20the%202020%20elections.%20Go%20to%20http://ThinQ.tv%20and%20browse%20the%20schedule%20of%20Conversations."
-                    onclick="window.open('https://twitter.com/intent/tweet?text=Join <%= user.name %> Conversation: <%= event.name + "," %> <%= event.start_at.strftime("%B %d, %I:%M %p")%> PDT: http://www.thinq.tv/<%= user.permalink %>,
+                <div class="social-buttons">
+                  <!-- Facebook Share -->
+                  <a href="http://www.facebook.com/sharer.php?u=<%= domainurl %><%= user.permalink %>%"
+                    onclick="window.open('http://www.facebook.com/sharer.php?u=<%= domainurl %><%= user.permalink %>',
                     'newwindow',
-                    'width=600,height=400,top=80,left=300');
+                    'width=600,height=400,top=100,left=300');
                     return false;">
-                    <%= image_tag("social-share-button/twitter.png")%>
+                    <%= image_tag("social-share-button/facebook.png")%>
+
+                    </a>&nbsp
+
+                    <!-- Twitter Share -->
+                    <a href="https://twitter.com/intent/tweet?text=Join <%= user.name %>'s' Conversation to talk about: <%= event.name + "," %> <%= event.start_at.strftime("%B %d, %I:%M %p")%> PDT: http://www.thinq.tv/<%= user.permalink %>%20Every%20afternoon%20and%20evening%20ThinQ.tv%20has%20meaningful%20live%20video%20chat%20conversations%20to%20get%20you%20motivated%20for%20the%202020%20elections.%20Go%20to%20http://ThinQ.tv%20and%20browse%20the%20schedule%20of%20Conversations."
+                      onclick="window.open('https://twitter.com/intent/tweet?text=Join <%= user.name %> Conversation: <%= event.name + "," %> <%= event.start_at.strftime("%B %d, %I:%M %p")%> PDT: http://www.thinq.tv/<%= user.permalink %>,
+                      'newwindow',
+                      'width=600,height=400,top=100,left=300');
+                      return false;">
+                      <%= image_tag("social-share-button/twitter.png")%>
+                    </a>&nbsp
+
+                  <!-- LinkedIn -->
+                  <a href="https://www.linkedin.com/shareArticle?mini=true&url=<%= @surl %>"
+                    onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=<%= @surl %>',
+                    'newwindow',
+                    'width=600,height=400,top=100,left=300');
+                    return false;">
+                    <%= image_tag("social-share-button/linkedin.png")%>
                   </a>&nbsp
 
-                <!-- LinkedIn -->
-                <a href="https://www.linkedin.com/shareArticle?mini=true&url=<%= @surl %>"
-                  onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=<%= @surl %>',
-                  'newwindow',
-                  'width=600,height=400,top=100,left=300');
-                  return false;">
-                  <%= image_tag("social-share-button/linkedin.png")%>
-                </a>&nbsp
-
+                  </div>
               </td>
 
             </tr>
