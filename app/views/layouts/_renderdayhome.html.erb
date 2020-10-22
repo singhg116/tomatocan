@@ -43,7 +43,7 @@
             <%eventCount += 1%>
             <% user = User.find(event.user_id) %>
             <tr>
-              <td class="col-xs-3" pl-2 style="text-align: left; padding-left: 4%; width: 30%;">
+              <td class="col-xs-3" style="text-align: left; padding-left: 4%; width: 27%;">
                 <div id = "calendar-event">
                   <%= link_to event.name, event_path(event.id), id: "calendar-event", title: event.desc, style: "font-weight:700; color: #222222;" %>
                 </div>
@@ -55,7 +55,7 @@
                 <% end %>
               </td>
 
-              <td class="col-xs-3" style="width:10%; min-width: 70px;">
+              <td class="col-xs-3 pl-0" style="width:8.5%; min-width: 70px;">
                 <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
                 <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
                 <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
@@ -65,7 +65,7 @@
                 <%end%>
               </td>
 
-              <td class="col-xs-3" style="color:#000; text-align: left; width: 20%;">
+              <td class="col-xs-3 pl-0" style="color:#000; text-align: left; width: 19%;">
                 <% edt = event.start_at + 3.hours %>
                 <% dayId = "week-day-#{currentDate.strftime('%A')}-#{i}"%>
                 <% timeId = "week-time-#{currentDate.strftime('%A')}-#{i}"%>
@@ -135,7 +135,7 @@
                 <% end %>
               </td>
 
-              <td class="col-xs-3" style="width:10%">
+              <td class="col-xs-3" style="width:9%">
                 <% rsvps = event.rsvpqs %>
                  <% rsvpusers = event.users %>
                 <% if rsvps.count > 0 %>
@@ -176,7 +176,7 @@
               </td>
 
               <!-- Share Buttons -->
-              <td class="col-xs-3" style="margin-top: 12px; width: 15%">
+              <td class="col-xs-3 pl-0" style="margin-top: 12px; width: 15%">
                 <% domainurl = "http://www.thinq.tv/"%>
 
                 <div class="social-buttons">

@@ -6,7 +6,7 @@
           <% if (Time.current > Time.parse(@start_timestudy)) && (Time.current < Time.parse(@end_timestudy)) %>
             <div id="eventCurrentdiv" class = "align-items-end pb-0 mb-0 pt-4">
               <h3 class = "pt-5" style = "color:#8C1D40" > New to ThinQ?<br> </h3>
-              <%= link_to " Drop In Now ", user_viewer_path(@hoststudy.permalink, chatrm: @displaystudy.topic , event: @displaystudy.id), class: "btn btn-primary btn-sm", style: "width: 60%; font-size: 150%; margin-bottom: 10px; border-radius: 5px;" %>
+              <%= link_to " Drop In Now ", user_viewer_path(@hoststudy.permalink, chatrm: @displaystudy.topic , event: @displaystudy.id), class: "btn btn-primary btn-sm", style: "width: 60%; font-size: 150%; margin-bottom: 10px; border-radius: 5px;  background-color: #ffc107; border-color: #ffc107" %>
               <br><p>Join our Drop-In to learn more about the platform! </p>
             </div>
           <% end %>
